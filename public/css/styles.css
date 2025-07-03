@@ -1,3 +1,7 @@
+/* File: public/css/styles.css */
+/* connect another file*/
+@import url('./desktop.css');
+@import url('./mobile.css');
 /******* Change Box Model ***************/
 *,
 *:before,
