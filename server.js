@@ -28,6 +28,23 @@ app.use(static)
 app.get("/", (req, res) => {
   res.render("index", { title: "Home" })
 })
+// 404 handler
+app.use((req, res, next) => {
+  const err = new Error("Page Not Found");
+  err.status = 404;
+  next(err);
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).render("error", {
+    title: "Error",
+    message: err.message,
+    status: err.status || 500,
+  });
+});
+
 
 
 /* ***********************

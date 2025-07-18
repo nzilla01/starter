@@ -124,6 +124,18 @@ footer{
     bottom: 0;
     width: 100%;
 }
+.vehicle-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.detail-img {
+  max-width: 100%;
+  flex: 1 1 300px;
+}
+.detail-info {
+  flex: 1 1 300px;
+}
 }
 
 
