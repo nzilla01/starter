@@ -1,4 +1,4 @@
-const {pool} = require('pg') // Importing the pool functionality pg
+const {Pool} = require('pg') // Importing the pool functionality pg
 require('dotenv').config()
 /* *************************
 *connect pool
@@ -8,7 +8,7 @@ require('dotenv').config()
 * *************** */
 
 let pool
-  if (process.env.NODE_ENV === 'development') {pool = new pool({
+  if (process.env.NODE_ENV === 'development') {pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
       rejectUnauthorized: false,

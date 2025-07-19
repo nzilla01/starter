@@ -45,6 +45,9 @@ header  a {
  nav{
    margin: 20px 10px;
  }
+  nav ul a{
+    color:var(--bg-color);
+  }
  nav ul{
     display: flex;
     gap: 20px;
@@ -57,7 +60,6 @@ header  a {
  }
  nav ul li{
     list-style: none;
-    color:var(--bg-color);
     font-size: 1.2rem;
  }
 .hero-page{

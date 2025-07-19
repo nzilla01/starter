@@ -2,61 +2,78 @@
  * This server.js file is the primary file of the 
  * application. It is used to control the project.
  *******************************************/
+
 /* ***********************
  * Require Statements
  *************************/
-const express = require("express")
-const env = require("dotenv").config()
-const app = express()
-const static = require("./routes/static")
-const expresslayout = require("express-ejs-layouts")
+const express = require("express");
+const env = require("dotenv").config();
+const app = express();
+const static = require("./routes/static");
+const expressLayouts = require("express-ejs-layouts");
+const inventoryRoute = require("./routes/inventoryRoute");
+const utilities = require("./utilities"); // ADDED THIS LINE
 
 /* ***********************
- * view engine setup
+ * Middleware
  *************************/
-app.set("view engine", "ejs")
-app.use(expresslayout)
-app.set("layout", "layouts/layout")
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+/* ***********************
+ * View Engine Setup
+ *************************/
+app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "layouts/layout");
 
 /* ***********************
  * Routes
  *************************/
-app.use(static)
+app.use(static);
+app.use("/inv", inventoryRoute);
 
-//index route
+// Index route
 app.get("/", (req, res) => {
-  res.render("index", { title: "Home" })
-})
-// 404 handler
+  res.render("index", { title: "Home" });
+});
+
+// 404 Handler
 app.use((req, res, next) => {
   const err = new Error("Page Not Found");
   err.status = 404;
   next(err);
 });
 
-// Error handler
-app.use((err, req, res, next) => {
+// Error Handler (UPDATED)
+app.use(async (err, req, res, next) => {
   console.error(err.stack);
-  res.status(err.status || 500).render("error", {
-    title: "Error",
-    message: err.message,
-    status: err.status || 500,
-  });
+  const status = err.status || 500;
+  
+  try {
+    const nav = await utilities.getNav();
+    res.status(status).render("error", {
+      title: "Error",
+      message: err.message,
+      status: status,
+      nav: nav
+    });
+  } catch (error) {
+    res.status(status).render("error", {
+      title: "Error",
+      message: err.message,
+      status: status,
+      nav: '<ul><li><a href="/">Home</a></li></ul>'
+    });
+  }
 });
 
-
-
 /* ***********************
- * Local Server Information
- * Values from .env (environment) file
+ * Server Configuration
  *************************/
-const port = process.env.PORT
-const host = process.env.HOST
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || "localhost";
 
-/* ***********************
- * Log statement to confirm server operation
- *************************/
 app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
-})
+  console.log(`app listening on ${host}:${port}`);
+});

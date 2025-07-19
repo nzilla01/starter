@@ -1,13 +1,11 @@
 const express = require('express')
-const router = new express.Router()
-const invController = require('../controllers/invcontroller')
+const router = express.Router()
+const invController = require('../controllers/invcontoller')
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invController.buildByClassificationId);
 
-router.get("/cause-error", (req, res, next) => {
-  throw new Error("Intentional 500 Error");
-});
 
+router.get("/detail/:invId", invController.buildDetailView);
 
 module.exports = router;
