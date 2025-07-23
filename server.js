@@ -13,7 +13,7 @@ const staticRoutes = require("./routes/static");
 const expressLayouts = require("express-ejs-layouts");
 const inventoryRoute = require("./routes/inventoryRoute");
 const utilities = require("./utilities"); 
-const basecontroller = require('./controllers/basecontroller')
+const basecontroller = require('./controllers/basecontroler')
 
 /* ***********************
  * Middleware
