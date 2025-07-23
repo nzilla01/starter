@@ -9,10 +9,11 @@
 const express = require("express");
 const env = require("dotenv").config();
 const app = express();
-const static = require("./routes/static");
+const staticRoutes = require("./routes/static");
 const expressLayouts = require("express-ejs-layouts");
 const inventoryRoute = require("./routes/inventoryRoute");
-const utilities = require("./utilities"); // ADDED THIS LINE
+const utilities = require("./utilities"); 
+const basecontroller = require('../starter/controllers/basecontroller')
 
 /* ***********************
  * Middleware
@@ -30,13 +31,11 @@ app.set("layout", "layouts/layout");
 /* ***********************
  * Routes
  *************************/
-app.use(static);
+app.use(staticRoutes);
 app.use("/inv", inventoryRoute);
 
 // Index route
-app.get("/", (req, res) => {
-  res.render("index", { title: "Home" });
-});
+app.get("/", basecontroller.buildHome);
 
 // 404 Handler
 app.use((req, res, next) => {
@@ -77,3 +76,4 @@ const host = process.env.HOST || "localhost";
 app.listen(port, () => {
   console.log(`app listening on ${host}:${port}`);
 });
+

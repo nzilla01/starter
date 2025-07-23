@@ -4,10 +4,12 @@ const Util = {}
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
+
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
   let list = "<ul>"
   list += '<li><a href="/" title="Home page">Home</a></li>'
+  console.log(data)
   data.rows.forEach((row) => {
     list += "<li>"
     list +=
@@ -19,7 +21,7 @@ Util.getNav = async function (req, res, next) {
       row.classification_name +
       "</a>"
     list += "</li>"
-    })
+  })
   list += "</ul>"
   return list
 }
@@ -41,7 +43,7 @@ Util.buildClassificationGrid = async function(data){
       +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
       +' on CSE Motors" /></a>'
       grid += '<div class="namePrice">'
-      grid += '<hr />'
+      // grid += '<hr />'
       grid += '<h2>'
       grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
       + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
@@ -60,21 +62,27 @@ Util.buildClassificationGrid = async function(data){
 }
 
 /* **************************************
-* Build the vehicle detail view HTML
-* ************************************ */
-Util.buildDetailPage = async function (vehicle) {
-  let view = `<section class="vehicle-detail">`;
-  view += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model} on CSE Motors">`;
-  view += `<div class="detail-info">`;
-  view += `<h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>`;
-  view += `<p><strong>Price:</strong> $${new Intl.NumberFormat("en-US").format(vehicle.inv_price)}</p>`;
-  view += `<p><strong>Description:</strong> ${vehicle.inv_description}</p>`;
-  view += `<p><strong>Color:</strong> ${vehicle.inv_color}</p>`;
-  view += `<p><strong>Miles:</strong> ${new Intl.NumberFormat("en-US").format(vehicle.inv_miles)}</p>`;
-  view += `</div>`;
-  view += `</section>`;
-  return view;
-};
+ * Build the vehicle detail view HTML
+ * ************************************ */
+Util.buildDetailView = function(vehicle) {
+  let view = `
+    <section id="vehicle-detail">
+      <div class="vehicle-image">
+        <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}" />
+      </div>
+      <div class="vehicle-info">
+        <h1>${vehicle.inv_make} ${vehicle.inv_model}</h1>
+        <h2>Price: $${new Intl.NumberFormat('en-US').format(vehicle.inv_price)}</h2>
+        <ul>
+          <li><strong>Description:</strong> ${vehicle.inv_description}</li>
+          <li><strong>Color:</strong> ${vehicle.inv_color}</li>
+          <li><strong>Miles:</strong> ${new Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</li>
+        </ul>
+      </div>
+    </section>
+  `
+  return view
+}
 
 
 module.exports = Util

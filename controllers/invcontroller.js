@@ -2,72 +2,41 @@ const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
+
 /* ***************************
- * Build add-classification view
+ *  Build inventory by classification view
  * ************************** */
-invCont.buildAddClassification = async (req, res) => {
-  let nav = await utilities.getNav();
-  res.render("./inventory/add-classification", {
-    title: "Add New Classification",
+invCont.buildByClassificationId = async function (req, res, next) {
+  const classification_id = req.params.classificationId
+  const data = await invModel.getInventoryByClassificationId(classification_id)
+  const grid = await utilities.buildClassificationGrid(data)
+  let nav = await utilities.getNav()
+  const className = data[0].classification_name
+  res.render("./inventory/classification", {
+    title: className + " vehicles",
     nav,
-    errors: null,
-  });
-};
+    grid,
+  })
+}
 
 /* ***************************
- * Process classification addition
+ *  Build inventory detail view
  * ************************** */
-invCont.insertClassification = async (req, res) => {
-  // Add your logic to insert classification into DB
-  // Example:
-  const { classification_name } = req.body;
+invCont.buildByInventoryId = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inv_id)
+  let nav = await utilities.getNav()
   try {
-    await invModel.addClassification(classification_name);
-    req.flash("message", "Classification added successfully!");
-    res.redirect("/inventory/management");
-  } catch (error) {
-    let nav = await utilities.getNav();
-    res.render("./inventory/add-classification", {
-      title: "Add New Classification",
+    const data = await invModel.getInventoryById(inv_id)
+    const vehicleName = `${data.inv_make} ${data.inv_model}`
+    const html = await utilities.buildDetailView(data)
+    res.render("./inventory/detail", {
+      title: vehicleName,
       nav,
-      errors: [error.message],
-    });
-  }
-};
-
-/* ***************************
- * Build add-inventory view
- * ************************** */
-invCont.buildAddInventory = async (req, res) => {
-  let nav = await utilities.getNav();
-  const classifications = await invModel.getClassifications();
-  res.render("./inventory/add-inventory", {
-    title: "Add New Vehicle",
-    nav,
-    classifications,
-    errors: null,
-  });
-};
-
-/* ***************************
- * Process inventory addition
- * ************************** */
-invCont.insertInventory = async (req, res) => {
-  // Add your logic to insert inventory into DB
-  try {
-    await invModel.addInventory(req.body);
-    req.flash("message", "Vehicle added successfully!");
-    res.redirect("/inventory/management");
+      view : html,
+    })
   } catch (error) {
-    let nav = await utilities.getNav();
-    const classifications = await invModel.getClassifications();
-    res.render("./inventory/add-inventory", {
-      title: "Add New Vehicle",
-      nav,
-      classifications,
-      errors: [error.message],
-    });
+    next(error)
   }
-};
+}
 
 module.exports = invCont
