@@ -14,12 +14,35 @@ const expressLayouts = require("express-ejs-layouts");
 const inventoryRoute = require("./routes/inventoryRoute");
 const utilities = require("./utilities"); 
 const basecontroller = require('./controllers/basecontroler')
+const session = require("express-session");
+const pool = require('./database/')
+const accountRoute = require("./routes/accountRoute");
 
 /* ***********************
  * Middleware
  *************************/
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: true }));
+
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool, // Use the database connection pool
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: "sessionId",
+
+}))
+
+//express message middleware
+app.use(require('connect-flash')());
+app.use(function(req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
 
 /* ***********************
  * View Engine Setup
@@ -36,6 +59,9 @@ app.use("/inv", inventoryRoute);
 
 // Index route
 app.get("/", basecontroller.buildHome);
+
+//account Route
+app.use("/account", accountRoute )
 
 // 404 Handler
 app.use((req, res, next) => {
