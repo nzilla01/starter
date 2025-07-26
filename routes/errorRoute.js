@@ -1,10 +1,10 @@
+// routes/errorRoute.js
 
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+const router = express.Router();
+const errorController = require('../controllers/errorController');
 
-// Route to trigger 500 error
-router.get("/trigger500", (req, res, next) => {
-  throw new Error("Intentional 500 Error")
-})
+// Route to trigger 500 error using controller
+router.get('/trigger500', errorController.trigger500);
 
-module.exports = router
+module.exports = router;

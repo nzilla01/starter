@@ -17,6 +17,7 @@ const basecontroller = require('./controllers/basecontroler')
 const session = require("express-session");
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute");
+const errorRoute = require("./routes/errorRoute");
 
 /* ***********************
  * Middleware
@@ -62,6 +63,8 @@ app.get("/", basecontroller.buildHome);
 
 //account Route
 app.use("/account", accountRoute )
+// Error route
+app.use('/error', errorRoute);
 
 // 404 Handler
 app.use((req, res, next) => {
