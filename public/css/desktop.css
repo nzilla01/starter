@@ -204,7 +204,11 @@ li {
     margin-top: 1rem;
     text-align: center;
   }
-
+  .flash-message {
+  color: red;
+  margin: 1em auto;
+  text-align: center;
+}
   button {
     margin-top: 1rem;
     padding: 0.6rem 1.2rem;
@@ -218,6 +222,13 @@ li {
    color: var(--bg-color);
 }
 
+input:required:invalid, input:focus:invalid {
+ background-image: url(/images/invalid.png);
+ 
+}
+ input:required:valid {
+  background-image: url(/images/valid.png);
+ }
 
 
 

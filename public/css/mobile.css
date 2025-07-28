@@ -197,6 +197,14 @@ footer a{
   width: 100%;
 }
 
+/* input:required:invalid, input:focus:invalid {
+ background-image: url(/images/invalid.png);
+ 
+}
+ input:required:valid {
+ background-image: url(/images/valid.png);
+ 
+ } */
 
 }
 
