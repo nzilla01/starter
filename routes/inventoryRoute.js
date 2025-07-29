@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const invController = require('../controllers/invcontroller')
+const utilities = require('../utilities/')
+const regValidate = require("../utilities/account-validation")
+
 
 
 
@@ -9,5 +12,14 @@ router.get("/type/:classificationId", invController.buildByClassificationId)
 
 router.get("/detail/:inv_id", invController.buildByInventoryId);// View vehicle details by inventory ID
 
+router.get("/", utilities.handleErrors(invController.buildManagement))
+
+router.post(
+  "/add-classification",
+  regValidate.registrationRules(),
+    regValidate.checkRegData,
+  utilities.handleErrors(invController.insertClassification)
+)
 
 module.exports = router
+

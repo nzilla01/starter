@@ -24,6 +24,7 @@ async function buildRegister(req, res, next) {
   res.render("account/register", {
     title: "Register",
     nav,
+    errors:null,
   });
 }
 
@@ -41,7 +42,7 @@ async function registerAccount(req, res) {
     account_email,
     account_password
   )
-
+  
   if (regResult) {
     req.flash(
       "notice",

@@ -8,7 +8,7 @@
     <input 
       type="text" 
       id="first_name" 
-      name="first_name" 
+      name="account_firstname" 
       required 
       value="<%= typeof first_name != 'undefined' ? first_name : '' %>">
 
@@ -16,7 +16,7 @@
     <input 
       type="text" 
       id="last_name" 
-      name="last_name" 
+      name="account_lastname" 
       required 
       value="<%= typeof last_name != 'undefined' ? last_name : '' %>">
 
@@ -24,7 +24,7 @@
     <input 
       type="email" 
       id="email" 
-      name="email" 
+      name="account_email" 
       required 
       value="<%= typeof email != 'undefined' ? email : '' %>">
 
@@ -33,7 +33,7 @@
       <input 
         type="password" 
         id="password" 
-        name="password" 
+        name="account_password" 
         required 
        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
         title="Must be at least 12 characters and include one uppercase letter, one number, and one special character">
@@ -48,6 +48,14 @@
   </p>
   </form>
 </div>
+
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
 
 <script>
   // Toggle password visibility
