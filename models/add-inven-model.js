@@ -1,3 +1,5 @@
+const db = require('../database/')
+
 async function addInventory(data) {
   const sql = `
     INSERT INTO inventory (
@@ -27,4 +29,27 @@ async function addInventory(data) {
     console.error("Add Inventory DB Error:", err.message)
     return null
   }
+
 }
+
+
+async function addClassification(classification_name) {
+  const sql = `
+    INSERT INTO classification (classification_name)
+    VALUES ($1)
+    RETURNING *;
+  `
+
+  try {
+    const result = await db.query(sql, [classification_name.trim()])
+    return result.rows[0]  // returns the inserted row (id + name)
+  } catch (err) {
+    console.error("Add Classification DB Error:", err.message)
+    return null
+  }
+}
+
+
+
+module.exports ={ addInventory, addClassification }
+

@@ -1,19 +1,29 @@
-<h1>Add Classification</h1>
 
 
-  <div class="flash-message"><%= message %></div>
+<main>
+  <h1>Add New Classification</h1>
+  <p>Note: Classification name must contain only letters and no spaces or special characters.</p>
 
+<% if (locals.message) { %>
+  <p class="flash-message"><%= message %></p>
+<% } %>
+  <!-- Add Classification Form -->
+  <form action="/inv/add-classification" method="post" id="addClassificationForm">
+    <label for="classification_name">Classification Name</label>
+    <input 
+      type="text" 
+      name="classification_name" 
+      id="classification_name" 
+      pattern="^[A-Za-z]+$" 
+      title="Only letters, no spaces or special characters" 
+      required 
+      value="<%= typeof classification_name != 'undefined' ? classification_name : '' %>"
+    >
+    <button type="submit">Add Classification</button>
+  </form>
+</main>
 
-<form action="/inv/add-classification" method="post">
-  <label for="classification_name">Classification Name (no spaces or special characters)</label>
-  <input 
-    type="text" 
-    id="classification_name" 
-    name="classification_name" 
-    pattern="^[a-zA-Z0-9]+$"
-    title="No spaces or special characters" 
-    required
-    value="<%= typeof classification_name != 'undefined' ? classification_name : '' %>">
-  
-  <button type="submit">Add Classification</button>
-</form>
+<!-- <script>
+  // Optional: Extra client-side validation can be added here
+</script> -->
+

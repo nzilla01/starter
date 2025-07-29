@@ -197,15 +197,25 @@ footer a{
   width: 100%;
 }
 
-/* input:required:invalid, input:focus:invalid {
- background-image: url(/images/invalid.png);
+input:required:invalid, input:focus:invalid {
+ border: 2px solid red;
+  background-color: #ffe6e6;
  
 }
  input:required:valid {
- background-image: url(/images/valid.png);
- 
- } */
+  border: 2px solid green;
+  background-color: #e6ffe6;
+ }
 
+
+ .invpage{
+display: flex;
+width: 100%;
+text-align: center;
+justify-content: space-around;
+align-items: center;
+margin-bottom: 2rem;
+ }
 }
 
 

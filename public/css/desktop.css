@@ -176,7 +176,7 @@ li {
   .signin {
     max-width: 400px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 1.2rem;
     font-family: Arial, sans-serif;
   }
 
@@ -223,13 +223,34 @@ li {
 }
 
 input:required:invalid, input:focus:invalid {
- background-image: url(/images/invalid.png);
+ border: 2px solid red;
+  background-color: #ffe6e6;
  
 }
  input:required:valid {
-  background-image: url(/images/valid.png);
+  border: 2px solid green;
+  background-color: #e6ffe6;
+ }
+ #addInventoryForm{
+ padding: 20px 30rem;
+  align-items: center;
  }
 
+  .invpage{
+display: flex;
+flex-direction: column;
+width: 100%;
+text-align: center;
+justify-content: space-around;
+align-items: center;
+margin-bottom: 2rem;
+font-size: 1.5rem;
+ }
+
+ .invpag a{
+  color: var(--header-color);
+
+ }
 
 
 }
