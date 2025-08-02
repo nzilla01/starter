@@ -150,6 +150,11 @@ Util.checkAccountType =  (req, res, next) => {
 }
 
 
+// Util.handleViewLocals = (req, res, next) => {
+//   res.locals.login = req.session.loggedin || false
+//   res.locals.accountData = req.session.account || {}
+//   next()
+// }
 
 
 

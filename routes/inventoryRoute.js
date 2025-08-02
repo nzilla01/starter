@@ -17,16 +17,17 @@ router.get("/", utilities.handleErrors(invController.buildManagement))
 router.get("/add-inventory", invController.buildAddInventory);
 
 router.post("/add-inventory", 
+  utilities.checkAccountType,
   regValidate.validateInventory,
    invController.buildAddInventory);
 
-   router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
+   router.get("/add-classification",utilities.checkAccountType, utilities.handleErrors(invController.buildAddClassification))
 
 
-   router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+   router.get("/getInventory/:classification_id",  utilities.handleErrors(invController.getInventoryJSON))
 
    // Route to build edit inventory view
-  router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
+  router.get("/edit/:inv_id",  utilities.handleErrors(invController.editInventoryView))
 
 
 router.post(

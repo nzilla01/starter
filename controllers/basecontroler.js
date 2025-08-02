@@ -8,12 +8,11 @@ baseController.buildHome = async function(req, res) {
   const loggedin = res.locals.loggedin || false
 
   req.flash("notice", "this is a flash message")
-
   res.render('index', {
     title: 'Home',
     nav,
     accountData,
-    login: loggedin
+    login:accountData
   })
 }
 

@@ -57,7 +57,7 @@ validate.registrationRules = () => {
 
 
 /* ****************************************
-* Check datda and return errors or continue to registration
+* Check data and return errors or continue to registration
 * *************************************** */
 validate.checkRegData = async (req, res, next) => {
     const {account_firstname, account_lastname, account_email} = req.body
@@ -123,6 +123,101 @@ validate.checkLoginData = async (req, res, next) => {
 
   next()
 }
+
+/* ****************************************
+* Update account info validation rules
+* **************************************** */
+validate.updateAccountRules = () => {
+  return [
+    body("account_firstname")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 1 })
+      .withMessage("Please provide a first name."),
+
+    body("account_lastname")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isLength({ min: 1 })
+      .withMessage("Please provide a last name."),
+
+    body("account_email")
+      .trim()
+      .escape()
+      .notEmpty()
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("Please enter a valid email address."),
+  ]
+}
+
+/* ****************************************
+* Check update account data
+* **************************************** */
+validate.checkUpdateAccountData = async (req, res, next) => {
+  const { account_firstname, account_lastname, account_email, account_id } = req.body
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/update", {
+      errors,
+      title: "Edit Account",
+      nav,
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_id
+    })
+    return
+  }
+
+  next()
+}
+
+/* ****************************************
+* Password update validation rules
+* **************************************** */
+validate.passwordRules = () => {
+  return [
+    body("account_password")
+      .trim()
+      .notEmpty()
+      .isStrongPassword({
+        minLength: 12,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1
+      })
+      .withMessage("Password must be at least 12 characters long and include at least one lowercase letter, one uppercase letter, one number, and one symbol.")
+  ]
+}
+
+/* ****************************************
+* Check password update data
+* **************************************** */
+validate.checkPasswordData = async (req, res, next) => {
+  const { account_id } = req.body
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/update", {
+      errors,
+      title: "Edit Account",
+      nav,
+      account_id
+    })
+    return
+  }
+
+  next()
+}
+
+
 
 
 module.exports = validate
