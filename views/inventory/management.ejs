@@ -4,8 +4,19 @@
 <a href="/inv/add-classification" class="inv">Add New Classification</a>
 <a href="/inv/add-inventory" class="inv">Add New Inventory</a>
 
+<h2> Manage Inventory</h2>
+<p class="mang">Select Classification from the list below</p>
+
+<%- classificationSelect %>
+
+<table id="inventoryDisplay"></table>
+
+<noscript>JavaScript must be enabled to use this page.</noscript>
+
+
 <% if (locals.message) { %>
   <p class="flash-message"><%= message %></p>
 <% } %>
 </div>
 
+<script src="../../js/inventory.js"></script>

@@ -19,13 +19,15 @@ const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute");
 const errorRoute = require("./routes/errorRoute");
 const bodyParser = require("body-parser")
+const cookieParser = require("cookie-parser")
 
 /* ***********************
  * Middleware
  *************************/
 app.use(express.json());
-
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
+app.use(utilities.checkJWTToken)
 
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
@@ -36,6 +38,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   name: "sessionId",
+  cookie: {secure:false}
 
 }))
 
@@ -64,7 +67,7 @@ app.use(staticRoutes);
 app.use("/inv", inventoryRoute);
 
 // Index route
-app.get("/", basecontroller.buildHome);
+app.get("/", utilities.checkJWTToken, basecontroller.buildHome);
 
 //account Route
 app.use("/account", accountRoute )

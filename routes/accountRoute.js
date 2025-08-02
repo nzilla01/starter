@@ -8,8 +8,19 @@ const regValidate = require("../utilities/account-validation")
 acct.get("/login", utilities.handleErrors(accountctr.buildLogin))
 
 
+// Process the login request
+acct.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountctr.accountLogin)
+)
+
 //get /registrattion
 acct.get("/register", utilities.handleErrors(accountctr.buildRegister));
+
+// get account page 
+acct.get("/", accountctr.buildAccountHome)
 
 
 //post route for registration
@@ -17,5 +28,8 @@ acct.post("/register",
     regValidate.registrationRules(),
      regValidate.checkRegData,
     utilities.handleErrors(accountctr.registerAccount));
+
+    //logout 
+    acct.get('/logout', accountctr.logout)
 
 module.exports = acct;
