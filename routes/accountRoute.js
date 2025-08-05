@@ -40,6 +40,7 @@ acct.get(
   utilities.handleErrors(accountctr.buildUpdateAccountView)
 );
 
+
 // POST /account/update (update basic info: name + email)
 acct.post(
   "/update",

@@ -1,4 +1,4 @@
-
+<div class="signin">
 <h1>Update Account</h1>
 
 <% if (errors && errors.length > 0) { %>
@@ -10,7 +10,7 @@
 <% } %>
 
 <!-- Update Info Form -->
-<form action="/account/update" method="post">
+<form id="loginForm"  action="/account/update" method="post">
   <label for="account_firstname">First Name</label>
   <input type="text" name="account_firstname" id="account_firstname"
          required value="<%= account_firstname %>">
@@ -37,3 +37,4 @@
   <button type="submit">Update Password</button>
 </form>
 
+</div>

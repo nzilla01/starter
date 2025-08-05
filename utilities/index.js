@@ -116,24 +116,27 @@ Util.buildClassificationList = async function (classification_id = null) {
 * Middleware to check token validity
 **************************************** */
 Util.checkJWTToken = (req, res, next) => {
- if (req.cookies.jwt) {
-  jwt.verify(
-   req.cookies.jwt,
-   process.env.ACCESS_TOKEN_SECRET,
-   function (err, accountData) {
-    if (err) {
-     req.flash("notice", "Please log in")
-     res.clearCookie("jwt")
-     return res.redirect("/account/login")
-    }
-    res.locals.accountData = accountData
-    res.locals.loggedin = 1
-    next()
-   })
- } else {
-  next()
- }
-}
+  const token = req.cookies.jwt;
+
+  if (token) {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, accountData) => {
+      if (err) {
+        res.clearCookie("jwt");
+        res.locals.login = false;
+        res.locals.accountData = null;
+        return next(); // Don't redirect, just continue (optional: flash message)
+      }
+      res.locals.login = true;
+      res.locals.accountData = accountData;
+      next();
+    });
+  } else {
+    res.locals.login = false;
+    res.locals.accountData = null;
+    next();
+  }
+};
+
 
 /*************************************
  * acccount managment

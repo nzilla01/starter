@@ -30,3 +30,12 @@ CREATE TABLE inventory (
     inv_color VARCHAR(20),
     classification_id INT REFERENCES classification(classification_id)
 ); 
+
+CREATE TABLE review (
+    review_id SERIAL PRIMARY KEY,
+    review_text TEXT NOT NULL,
+    review_rating INT CHECK (review_rating BETWEEN 1 AND 5),
+    review_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    inv_id INT NOT NULL REFERENCES inventory(inv_id) ON DELETE CASCADE,
+    account_id INT NOT NULL REFERENCES account(account_id) ON DELETE CASCADE
+);
