@@ -29,6 +29,7 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(utilities.checkJWTToken)
+app.set("trust proxy", 1); 
 
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
@@ -39,7 +40,10 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   name: "sessionId",
-  cookie: {secure:false}
+   cookie: {
+    secure: process.env.NODE_ENV === "production", // secure in production
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // allow cross-site cookies
+  }
 
 }))
 
