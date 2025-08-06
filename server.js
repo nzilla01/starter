@@ -18,6 +18,7 @@ const session = require("express-session");
 const pool = require('./database/')
 const accountRoute = require("./routes/accountRoute");
 const errorRoute = require("./routes/errorRoute");
+const review = require("./routes/reviewRoute")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 
@@ -65,6 +66,10 @@ app.set("layout", "layouts/layout");
  *************************/
 app.use(staticRoutes);
 app.use("/inv", inventoryRoute);
+
+
+//review route
+app.use("/reviews", utilities.checkJWTToken, review)
 
 // Index route
 app.get("/", utilities.checkJWTToken, basecontroller.buildHome);
