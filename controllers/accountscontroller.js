@@ -50,7 +50,7 @@ async function accountLogin(req, res) {
       if(process.env.NODE_ENV === 'development') {
         res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
       } else {
-        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, sameSite:'None', maxAge: 3600 * 1000 })
       }
       req.flash('notice', 'successfull')
       return res.redirect("/account")
