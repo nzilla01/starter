@@ -21,6 +21,7 @@ const errorRoute = require("./routes/errorRoute");
 const review = require("./routes/reviewRoute")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const cors = require("cors")
 
 /* ***********************
  * Middleware
@@ -29,7 +30,12 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(utilities.checkJWTToken)
-app.set("trust proxy", 1); 
+app.use(cors({
+  origin: "https://starter-l2j4.onrender.com", 
+  credentials: true 
+}));
+
+app.set("trust proxy", 1);
 
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
