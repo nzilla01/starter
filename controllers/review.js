@@ -1,6 +1,16 @@
 const reviewModel = require("../models/review-model");
 const utilities = require("../utilities/");
 
+async function showAddReviewForm(req, res) {
+  const invId = req.query.invId;
+  const nav = await utilities.getNav();
+  res.render("review-add", {
+    title: "Add Review",
+    nav,
+    invId
+  });
+}
+
 async function addReview(req, res) {
   const { reviewText, reviewRating, invId } = req.body;
   const accountId = res.locals.accountData.account_id;
@@ -14,4 +24,4 @@ async function addReview(req, res) {
   }
 }
 
-module.exports = { addReview };
+module.exports = { showAddReviewForm, addReview };

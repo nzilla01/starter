@@ -9,4 +9,25 @@
 
   <%- view %>
 
-  
+  <% if (login) { %>
+  <a href="/reviews/add?invId=<%= vehicle.inv_id %>">
+    <button type="button">Add Review</button>
+  </a>
+<% } %>
+
+  <h3>All Reviews</h3>
+<% if (reviews && reviews.length > 0) { %>
+  <ul>
+    <% reviews.forEach(function(review) { %>
+      <li>
+        <strong><%= review.account_firstname %>:</strong>
+        <%= review.reviewtext %> 
+        (<%= review.reviewrating %>/5)
+        <br>
+        <small><%= new Date(review.reviewdate).toLocaleDateString() %></small>
+      </li>
+    <% }) %>
+  </ul>
+<% } else { %>
+  <p>No reviews yet.</p>
+<% } %>
