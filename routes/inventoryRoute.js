@@ -19,7 +19,7 @@ router.get("/add-inventory", invController.buildAddInventory);
 router.post("/add-inventory", 
   utilities.checkAccountType,
   regValidate.validateInventory,
-   invController.buildAddInventory);
+   invController.buildAddInventory); 
 
    router.get("/add-classification",utilities.checkAccountType, utilities.handleErrors(invController.buildAddClassification))
 

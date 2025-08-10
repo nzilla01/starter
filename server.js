@@ -75,7 +75,7 @@ app.set("layout", "layouts/layout");
  * Routes
  *************************/
 app.use(staticRoutes);
-app.use("/inv", inventoryRoute);
+app.use("/inv", utilities.checkJWTToken, inventoryRoute);
 
 
 //review route
