@@ -1,15 +1,21 @@
-<h1>Add Review</h1>
-<form action="/reviews/add" method="post">
-  <label for="reviewText">Your Review</label><br>
-  <textarea name="reviewText" id="reviewText" required></textarea><br>
-  <label for="reviewRating">Rating</label>
-  <select name="reviewRating" required>
-    <option value="5">5 - Excellent</option>
-    <option value="4">4 - Good</option>
-    <option value="3">3 - Average</option>
-    <option value="2">2 - Poor</option>
-    <option value="1">1 - Terrible</option>
-  </select>
-  <input type="hidden" name="invId" value="<%= invId %>">
-  <button type="submit">Submit Review</button>
-</form>
+<div class="review-container">
+    <h1>Leave a Review</h1>
+    <form action="/reviews/add" method="post">
+      <label for="reviewText">Your Review</label>
+      <textarea name="reviewText" id="reviewText" placeholder="Write your thoughts..." required></textarea>
+
+      <label for="reviewRating">Rating</label>
+      <select name="reviewRating" id="reviewRating" required>
+        <option value="">Select a rating</option>
+        <option value="5">⭐ 5 - Excellent</option>
+        <option value="4">⭐ 4 - Good</option>
+        <option value="3">⭐ 3 - Average</option>
+        <option value="2">⭐ 2 - Poor</option>
+        <option value="1">⭐ 1 - Terrible</option>
+      </select>
+
+      <input type="hidden" name="invId" value="<%= invId %>">
+
+      <button type="submit" id="sub">Submit Review</button>
+    </form>
+  </div>

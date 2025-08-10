@@ -13,7 +13,7 @@ VALUES
 -- SPORT
 ('Toyota', 'Supra', 2022, 'High performance sports car',  '/images/vehicles/batmobile.jpg','/images/vehicles/batmobile-tn.jpg', 50000.00, 10000, 'Red', 1),
 ('Ford', 'Mustang', 2021, 'Sporty and powerful coupe',  '/images/vehicles/camaro.jpg','/images/vehicles/camaro-tn.jpg', 55000.00, 12000, 'Blue', 1),
-('Chevrolet', 'Camaro ZL1', 2021, 'Upgraded American muscle car with modern features',  '/images/vehicles/delorean.jpg','/images/vehicles/delorean-tn.jpg',, 48000.00, 14000, 'Yellow', 1),
+('Chevrolet', 'Camaro ZL1', 2021, 'Upgraded American muscle car with modern features',  '/images/vehicles/delorean.jpg','/images/vehicles/delorean-tn.jpg', 48000.00, 14000, 'Yellow', 1),
 ('Ford', 'Crown Victoria', 2010, 'Classic full-size sedan used in law enforcement',  '/images/vehicles/crwn-vic.jpg','/images/vehicles/crwn-vic-tn.jpg', 20000.00, 90000, 'White', 1),
 ('Subaru', 'WRX STI', 2022, 'Rally-inspired AWD performance car',  '/images/vehicles/dog.jpg', '/images/vehicles/crwn-vic-tn.jpg', 41000.00, 8000, 'Silver', 1),
 ('Dodge', 'Challenger Hellcat', 2023, 'Extreme horsepower and drag racing capability',  '/images/vehicles/fire-truck.jpg','/images/vehicles/fire-truck-tn.jpg',  62000.00, 5000, 'Black', 1),

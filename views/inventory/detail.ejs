@@ -11,23 +11,33 @@
 
   <% if (login) { %>
   <a href="/reviews/add?invId=<%= vehicle.inv_id %>">
-    <button type="button">Add Review</button>
+    <button type="button" id="review">Add Review</button>
   </a>
 <% } %>
-
-  <h3>All Reviews</h3>
+<div id="reviews">
+<h3>All Reviews</h3>
 <% if (reviews && reviews.length > 0) { %>
   <ul>
     <% reviews.forEach(function(review) { %>
       <li>
-        <strong><%= review.account_firstname %>:</strong>
-        <%= review.reviewtext %> 
-        (<%= review.reviewrating %>/5)
+        <strong><%= review.account_firstname || 'Anonymous' %>:</strong>
+        <%= review.review_text || 'No review text provided.' %> 
+        (<%= review.review_rating || '?' %>/5)
         <br>
-        <small><%= new Date(review.reviewdate).toLocaleDateString() %></small>
+        <small>
+          <% if (review.review_date) { %>
+            <%= new Date(review.review_date).toLocaleDateString('en-US', {
+              year: 'numeric', month: 'long', day: 'numeric'
+            }) %>
+          <% } else { %>
+            <em>Date not available</em>
+          <% } %>
+        </small>
       </li>
     <% }) %>
   </ul>
 <% } else { %>
   <p>No reviews yet.</p>
 <% } %>
+
+</div>
